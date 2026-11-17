@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="340.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="210.0" layoutY="25.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="MAIN MENU" />
+      
+      <Button layoutX="45.0" layoutY="80.0" mnemonicParsing="false" onAction="#openDeposit" prefHeight="35.0" prefWidth="190.0" text="1. DEPOSIT" />
+      <Button layoutX="285.0" layoutY="80.0" mnemonicParsing="false" onAction="#openWithdraw" prefHeight="35.0" prefWidth="190.0" text="2. WITHDRAW" />
+      
+      <Button layoutX="45.0" layoutY="140.0" mnemonicParsing="false" onAction="#openViewBalance" prefHeight="35.0" prefWidth="190.0" text="3. VIEW BALANCE" />
+      <Button layoutX="285.0" layoutY="140.0" mnemonicParsing="false" onAction="#openViewAccountDetails" prefHeight="35.0" prefWidth="190.0" text="4. VIEW ACCOUNT DETAILS" />
+      
+      <Button layoutX="45.0" layoutY="200.0" mnemonicParsing="false" onAction="#openViewHistory" prefHeight="35.0" prefWidth="190.0" text="5. VIEW HISTORY" />
+      <Button layoutX="285.0" layoutY="200.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="35.0" prefWidth="190.0" text="6. LOGOUT" />
+   </children>
+</AnchorPane>

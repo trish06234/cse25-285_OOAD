@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.String?>
+
+<AnchorPane prefHeight="420.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="58.0" layoutY="20.0" text="ID NUMBER" />
+      <Label layoutX="60.0" layoutY="50.0" text="FULLNAME" />
+      <Label layoutX="60.0" layoutY="80.0" text="DATE OF BIRTH" />
+      <Label layoutX="58.0" layoutY="110.0" text="PHYSICAL ADDRESS" />
+      <Label layoutX="59.0" layoutY="140.0" text="EMAIL ADDRESS" />
+      <Label layoutX="57.0" layoutY="170.0" text="POSTAL ADDRESS" />
+      <Label layoutX="58.0" layoutY="200.0" text="SOURCE OF INCOME" />
+      <Label layoutX="58.0" layoutY="230.0" text="EMPLOYMENT DETAILS" />
+      <Label layoutX="59.0" layoutY="260.0" text="ACCOUNT TYPE" />
+      <Label layoutX="59.0" layoutY="290.0" text="CELLPHONE NUMBER" />
+      
+      <TextField fx:id="regIdField" layoutX="300.0" layoutY="16.0" promptText="ID NUMBER" />
+      <TextField fx:id="regNameField" layoutX="300.0" layoutY="46.0" promptText="FULLNAME" />
+      <TextField fx:id="regDobField" layoutX="300.0" layoutY="76.0" promptText="DATE OF BIRTH" />
+      <TextField fx:id="regAddressField" layoutX="300.0" layoutY="106.0" promptText="PHYSICAL ADDRESS" />
+      <TextField fx:id="regEmailField" layoutX="300.0" layoutY="136.0" promptText="EMAIL ADDRESS" />
+      <TextField fx:id="regPostalField" layoutX="300.0" layoutY="166.0" promptText="POSTAL ADDRESS" />
+      <TextField fx:id="regIncomeField" layoutX="300.0" layoutY="196.0" promptText="SOURCE OF INCOME" />
+      <TextField fx:id="regEmploymentField" layoutX="300.0" layoutY="226.0" promptText="EMPLOYMENT DETAILS" />
+      
+      <!-- Exactly 3 Account Type Options -->
+      <ComboBox fx:id="regAccountTypeCombo" layoutX="300.0" layoutY="256.0" prefWidth="149.0" promptText="Select Account Type">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Savings Account" />
+                  <String fx:value="Investment Account" />
+                  <String fx:value="Cheque Account" />
+              </FXCollections>
+          </items>
+      </ComboBox>
+
+      <TextField fx:id="regPhoneField" layoutX="300.0" layoutY="286.0" promptText="CELLPHONE NUMBER" />
+      
+      <Button layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#continueAction" text="CONTINUE" />
+      <Button layoutX="320.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelAction" text="CANCEL" />
+   </children>
+</AnchorPane>
