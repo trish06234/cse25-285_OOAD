@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.security.SecureRandom;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,18 +38,18 @@ public class Main extends Application {
     private static final String DATA_FILE = "applebank.txt";
     private static final SecureRandom random = new SecureRandom();
     
-    // Tracks the current registration profile type chosen via popup ("Personal" or "Business")
     private static String selectedProfileType = "Personal";
 
     public static class UserAccount {
         String accountNumber;
         String password;
-        String profileType; // "Personal" or "Business"
+        String profileType; 
         String idNumber;
         String fullName;
         String dob;
         String address;
         String email;
+       
         String postal;
         String income;
         String employment;
@@ -57,10 +60,8 @@ public class Main extends Application {
         double balance;
         List<String> transactionHistory;
 
-        public UserAccount(String accountNumber, String password, String profileType, String idNumber, 
-                           String fullName, String dob, String address, String email, String postal, 
-                           String income, String employment, String accountType, String phone, 
-                           String companyProfile, String creationDate, double balance, List<String> history) {
+        public UserAccount(String accountNumber, String password, String profileType, String idNumber, String fullName, String dob, String address, String email, String postal, 
+            String income, String employment, String accountType, String phone, String companyProfile, String creationDate, double balance, List<String> history) {
             this.accountNumber = accountNumber;
             this.password = password;
             this.profileType = (profileType != null && !profileType.isEmpty()) ? profileType : "Personal";
@@ -69,6 +70,7 @@ public class Main extends Application {
             this.dob = dob;
             this.address = address;
             this.email = email;
+            
             this.postal = postal;
             this.income = income;
             this.employment = employment;
@@ -84,7 +86,6 @@ public class Main extends Application {
     private static final Map<String, UserAccount> registeredUsers = new HashMap<>();
     private static String currentLoggedInUser = "";
 
-    // Registration Form Fields (supports both individual and business FXML components)
     @FXML private Label regTitleLabel;
     @FXML private Label regIdLabel;
     @FXML private Label regNameLabel;
@@ -97,6 +98,7 @@ public class Main extends Application {
     @FXML private TextField regDobField;
     @FXML private TextField regAddressField;
     @FXML private TextField regEmailField;
+    
     @FXML private TextField regPostalField;
     @FXML private TextField regIncomeField;
     @FXML private TextField regEmploymentField;
@@ -104,16 +106,15 @@ public class Main extends Application {
     @FXML private TextField regPhoneField;
     @FXML private TextArea regCompanyProfileArea;
 
-    // Login Form Fields
     @FXML private TextField accountNumberField;
     @FXML private TextField passwordField;
 
-    // Account Details Labels
     @FXML private Label detailProfileTypeLabel;
     @FXML private Label detailIdLabel;
     @FXML private Label detailNameLabel;
     @FXML private Label detailDobLabel;
     @FXML private Label detailAddressLabel;
+   
     @FXML private Label detailEmailLabel;
     @FXML private Label detailPostalLabel;
     @FXML private Label detailIncomeLabel;
@@ -170,6 +171,8 @@ public class Main extends Application {
                     sanitize(user.address),
                     sanitize(user.email),
                     sanitize(user.postal),
+                    
+                                          
                     sanitize(user.income),
                     sanitize(user.employment),
                     sanitize(user.accountType),
@@ -204,6 +207,7 @@ public class Main extends Application {
                     String id = parts[3];
                     String name = parts[4];
                     String dob = parts[5];
+                    
                     String address = parts[6];
                     String email = parts[7];
                     String postal = parts[8];
@@ -225,8 +229,7 @@ public class Main extends Application {
                     }
 
                     UserAccount user = new UserAccount(
-                        accNum, pass, profileType, id, name, dob, address, email, postal, 
-                        income, employment, accType, phone, companyProfile, creationDate, balance, history
+                        accNum, pass, profileType, id, name, dob, address, email, postal, income, employment, accType, phone, companyProfile, creationDate, balance, history
                     );
                     registeredUsers.put(accNum, user);
                 }
@@ -241,10 +244,9 @@ public class Main extends Application {
         return input.replace("|", "/").replace("\n", " ").replace("\r", "");
     }
 
-    // --- STAGE MANAGEMENT ---
     private void openStage(String fxmlFile, String title, Stage existingStage) {
         try {
-            // Dynamic FXML switching for registration based on user choice
+           
             if (fxmlFile.equals("register_individual.fxml")) {
                 boolean isBusiness = "Business".equalsIgnoreCase(selectedProfileType);
                 if (isBusiness) {
@@ -270,6 +272,7 @@ public class Main extends Application {
                 if (detailNameLabel != null) detailNameLabel.setText((isBus ? "Company Name: " : "Full Name: ") + user.fullName);
                 if (detailDobLabel != null) detailDobLabel.setText((isBus ? "Incorporation Date: " : "Date of Birth: ") + user.dob);
                 if (detailAddressLabel != null) detailAddressLabel.setText("Physical Address: " + user.address);
+               
                 if (detailEmailLabel != null) detailEmailLabel.setText("Email Address: " + user.email);
                 if (detailPostalLabel != null) detailPostalLabel.setText("Postal Address: " + user.postal);
                 if (detailIncomeLabel != null) detailIncomeLabel.setText((isBus ? "Annual Turnover: " : "Source of Income: ") + user.income);
@@ -317,7 +320,6 @@ public class Main extends Application {
         alert.showAndWait();
     }
 
-    // --- NAVIGATION & LOGIN ACTIONS ---
     @FXML
     public void loginAction(ActionEvent event) {
         loadUsersFromFile();
@@ -327,7 +329,6 @@ public class Main extends Application {
 
     @FXML
     public void registerAction(ActionEvent event) {
-        // Popup dialog to let user choose Personal or Business account registration
         List<String> choices = new ArrayList<>();
         choices.add("Personal (Individual)");
         choices.add("Business (Company)");
@@ -337,7 +338,6 @@ public class Main extends Application {
         dialog.setHeaderText("Choose Registration Type");
         dialog.setContentText("Select whether you are registering a Personal or Business account:");
         
-        // Remove the default question mark graphic icon from the dialog
         dialog.getDialogPane().setGraphic(null);
 
         Optional<String> result = dialog.showAndWait();
@@ -386,6 +386,7 @@ public class Main extends Application {
         String address = regAddressField != null ? regAddressField.getText().trim() : "";
         String email = regEmailField != null ? regEmailField.getText().trim() : "";
         String postal = regPostalField != null ? regPostalField.getText().trim() : "";
+        
         String income = regIncomeField != null ? regIncomeField.getText().trim() : "";
         String employment = regEmploymentField != null ? regEmploymentField.getText().trim() : "";
         String accountType = (regAccountTypeCombo != null && regAccountTypeCombo.getValue() != null) ? regAccountTypeCombo.getValue() : "Savings Account";
@@ -426,7 +427,6 @@ public class Main extends Application {
         openStage("login_view.fxml", "Apple Banking System - Home", null);
     }
 
-    // Main Menu Navigation
     @FXML
     public void openDeposit(ActionEvent event) {
         openStage("deposit.fxml", "Apple Banking System - Deposit", null);
@@ -459,7 +459,6 @@ public class Main extends Application {
         openStage("login_view.fxml", "Apple Banking System - Home", null);
     }
 
-    // Transactions Processing
     @FXML
     public void processDeposit(ActionEvent event) {
         UserAccount user = registeredUsers.get(currentLoggedInUser);
