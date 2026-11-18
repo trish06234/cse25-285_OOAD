@@ -44,11 +44,8 @@ public class BankTeller {
     public void displayCustomerInfo(Customer customer) {
 
         System.out.println("Customer Information");
-        System.out.println("Postal Address: "
-                + customer.getPostalAddress());
-        System.out.println("Physical Address: "
-                + customer.getPhysicalAddress());
-        System.out.println("Cellphone Number: "
-                + customer.getCellphoneNumber());
+        System.out.println("Postal Address: " + customer.getPostalAddress());
+        System.out.println("Physical Address: " + customer.getPhysicalAddress());
+        System.out.println("Cellphone Number: " + customer.getCellphoneNumber());
     }
 }
