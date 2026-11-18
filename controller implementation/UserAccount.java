@@ -12,6 +12,7 @@ public class UserAccount {
     private String address;
     private String email;
     private String postal;
+    
     private String income;
     private String employment;
     private String accountType;
@@ -20,10 +21,8 @@ public class UserAccount {
     private double balance;
     private List<String> transactionHistory;
 
-    public UserAccount(String accountNumber, String password, String idNumber, 
-                       String fullName, String Date Of Birth, String address, String email, String postal, 
-                       String income, String employment, String accountType, String phone, 
-                       String creationDate, double balance, List<String> history) {
+    public UserAccount(String accountNumber, String password, String idNumber, String fullName, String Date Of Birth, String address, String email, String postal, 
+    String income, String employment, String accountType, String phone, String creationDate, double balance, List<String> history) {
         this.accountNumber = accountNumber;
         this.password = password;
         this.idNumber = idNumber;
@@ -32,6 +31,7 @@ public class UserAccount {
         this.address = address;
         this.email = email;
         this.postal = postal;
+       
         this.income = income;
         this.employment = employment;
         this.accountType = accountType;
@@ -94,6 +94,7 @@ public class UserAccount {
     public String getPostal() { 
     return postal; 
     }
+   
     public String getIncome() { 
     return income; 
     }
