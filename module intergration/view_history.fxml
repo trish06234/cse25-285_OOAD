@@ -11,5 +11,3 @@
         <Button layoutX="210.0" layoutY="305.0" mnemonicParsing="false" onAction="#cancelTransaction" prefWidth="80.0" text="BACK" />
     </children>
 </AnchorPane>
-
-
