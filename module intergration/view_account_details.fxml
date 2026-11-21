@@ -13,6 +13,7 @@
                 <Label fx:id="detailNameLabel" text="Full Name: " />
                 <Label fx:id="detailDobLabel" text="Date of Birth: " />
                 <Label fx:id="detailAddressLabel" text="Physical Address: " />
+                
                 <Label fx:id="detailEmailLabel" text="Email Address: " />
                 <Label fx:id="detailPostalLabel" text="Postal Address: " />
                 <Label fx:id="detailIncomeLabel" text="Source of Income: " />
