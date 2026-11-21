@@ -9,4 +9,4 @@
         <Label fx:id="balanceDisplayLabel" layoutX="80.0" layoutY="80.0" style="-fx-font-size: 15px;" text="Current Balance: P 0.00" />
         <Button layoutX="160.0" layoutY="140.0" mnemonicParsing="false" onAction="#cancelTransaction" prefWidth="80.0" text="BACK" />
     </children>
-</AnchorPane>
+</AnchorPane> 
