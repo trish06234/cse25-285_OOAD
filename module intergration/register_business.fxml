@@ -17,6 +17,7 @@
         <Label layoutX="60.0" layoutY="105.0" text="INCORPORATION DATE" />
         <Label layoutX="58.0" layoutY="135.0" text="PHYSICAL ADDRESS" />
         <Label layoutX="59.0" layoutY="165.0" text="EMAIL ADDRESS" />
+        
         <Label layoutX="57.0" layoutY="195.0" text="POSTAL ADDRESS" />
         <Label layoutX="58.0" layoutY="225.0" text="ANNUAL TURNOVER" />
         <Label layoutX="58.0" layoutY="255.0" text="SHAREHOLDER DETAILS" />
