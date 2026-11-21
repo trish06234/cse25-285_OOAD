@@ -78,6 +78,7 @@ public class Main extends Application {
             this.employment = employment;
             this.accountType = accountType;
             this.phone = phone;
+            
             this.companyProfile = (companyProfile != null) ? companyProfile : "";
             this.creationDate = (creationDate != null && !creationDate.isEmpty()) ? creationDate : LocalDate.now().toString();
             this.balance = balance;
