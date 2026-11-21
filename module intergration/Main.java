@@ -1,11 +1,13 @@
+package com.example.applebanksystem;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-
 import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
@@ -21,8 +23,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.security.SecureRandom;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,19 +39,19 @@ public class Main extends Application {
 
     private static final String DATA_FILE = "applebank.txt";
     private static final SecureRandom random = new SecureRandom();
-    
+
     private static String selectedProfileType = "Personal";
 
     public static class UserAccount {
         String accountNumber;
         String password;
-        String profileType; 
+        String profileType;
         String idNumber;
         String fullName;
         String dob;
         String address;
         String email;
-       
+
         String postal;
         String income;
         String employment;
@@ -60,17 +62,17 @@ public class Main extends Application {
         double balance;
         List<String> transactionHistory;
 
-        public UserAccount(String accountNumber, String password, String profileType, String idNumber, String fullName, String dob, String address, String email, String postal, 
-            String income, String employment, String accountType, String phone, String companyProfile, String creationDate, double balance, List<String> history) {
+        public UserAccount(String accountNumber, String password, String profileType, String idNumber, String fullName, String dob, String address, String email, String postal,
+                           String income, String employment, String accountType, String phone, String companyProfile, String creationDate, double balance, List<String> history) {
             this.accountNumber = accountNumber;
             this.password = password;
             this.profileType = (profileType != null && !profileType.isEmpty()) ? profileType : "Personal";
             this.idNumber = idNumber;
             this.fullName = fullName;
             this.dob = dob;
+
             this.address = address;
             this.email = email;
-            
             this.postal = postal;
             this.income = income;
             this.employment = employment;
@@ -92,13 +94,12 @@ public class Main extends Application {
     @FXML private Label regDobLabel;
     @FXML private Label regIncomeLabel;
     @FXML private Label regEmploymentLabel;
-    
+
     @FXML private TextField regIdField;
     @FXML private TextField regNameField;
     @FXML private TextField regDobField;
     @FXML private TextField regAddressField;
     @FXML private TextField regEmailField;
-    
     @FXML private TextField regPostalField;
     @FXML private TextField regIncomeField;
     @FXML private TextField regEmploymentField;
@@ -114,7 +115,6 @@ public class Main extends Application {
     @FXML private Label detailNameLabel;
     @FXML private Label detailDobLabel;
     @FXML private Label detailAddressLabel;
-   
     @FXML private Label detailEmailLabel;
     @FXML private Label detailPostalLabel;
     @FXML private Label detailIncomeLabel;
@@ -122,7 +122,6 @@ public class Main extends Application {
     @FXML private Label detailAccountTypeLabel;
     @FXML private Label detailPhoneLabel;
 
-    // Deposit, Withdraw, Balance, and History Fields
     @FXML private TextField depositAmountField;
     @FXML private TextField withdrawAmountField;
     @FXML private Label balanceDisplayLabel;
@@ -143,7 +142,6 @@ public class Main extends Application {
         return accNum;
     }
 
-    // Unique password format: 3 letters followed by 6 digits ([A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9])
     private String generateStrictPassword() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 3; i++) {
@@ -162,25 +160,24 @@ public class Main extends Application {
             for (UserAccount user : registeredUsers.values()) {
                 String joinedHistory = String.join(";;", user.transactionHistory);
                 String line = String.join("|",
-                    sanitize(user.accountNumber),
-                    sanitize(user.password),
-                    sanitize(user.profileType),
-                    sanitize(user.idNumber),
-                    sanitize(user.fullName),
-                    sanitize(user.dob),
-                    sanitize(user.address),
-                    sanitize(user.email),
-                    sanitize(user.postal),
-                    
-                                          
-                    sanitize(user.income),
-                    sanitize(user.employment),
-                    sanitize(user.accountType),
-                    sanitize(user.phone),
-                    sanitize(user.companyProfile),
-                    sanitize(user.creationDate),
-                    String.valueOf(user.balance),
-                    sanitize(joinedHistory)
+                        sanitize(user.accountNumber),
+                        sanitize(user.password),
+                        sanitize(user.profileType),
+                        sanitize(user.idNumber),
+                        sanitize(user.fullName),
+                        sanitize(user.dob),
+                        sanitize(user.address),
+
+                        sanitize(user.email),
+                        sanitize(user.postal),
+                        sanitize(user.income),
+                        sanitize(user.employment),
+                        sanitize(user.accountType),
+                        sanitize(user.phone),
+                        sanitize(user.companyProfile),
+                        sanitize(user.creationDate),
+                        String.valueOf(user.balance),
+                        sanitize(joinedHistory)
                 );
                 writer.write(line);
                 writer.newLine();
@@ -207,7 +204,7 @@ public class Main extends Application {
                     String id = parts[3];
                     String name = parts[4];
                     String dob = parts[5];
-                    
+
                     String address = parts[6];
                     String email = parts[7];
                     String postal = parts[8];
@@ -229,7 +226,8 @@ public class Main extends Application {
                     }
 
                     UserAccount user = new UserAccount(
-                        accNum, pass, profileType, id, name, dob, address, email, postal, income, employment, accType, phone, companyProfile, creationDate, balance, history
+                            accNum, pass, profileType, id, name, dob, address, email, postal,
+                            income, employment, accType, phone, companyProfile, creationDate, balance, history
                     );
                     registeredUsers.put(accNum, user);
                 }
@@ -246,11 +244,10 @@ public class Main extends Application {
 
     private void openStage(String fxmlFile, String title, Stage existingStage) {
         try {
-           
             if (fxmlFile.equals("register_individual.fxml")) {
                 boolean isBusiness = "Business".equalsIgnoreCase(selectedProfileType);
                 if (isBusiness) {
-                    fxmlFile = "register_business.fxml"; 
+                    fxmlFile = "register_business.fxml";
                 }
             }
 
@@ -260,7 +257,7 @@ public class Main extends Application {
                 return;
             }
             FXMLLoader loader = new FXMLLoader(fileUrl);
-            loader.setController(this); 
+            loader.setController(this);
             Parent root = loader.load();
 
             UserAccount user = registeredUsers.get(currentLoggedInUser);
@@ -271,8 +268,8 @@ public class Main extends Application {
                 if (detailIdLabel != null) detailIdLabel.setText((isBus ? "Registration Number: " : "ID Number: ") + user.idNumber);
                 if (detailNameLabel != null) detailNameLabel.setText((isBus ? "Company Name: " : "Full Name: ") + user.fullName);
                 if (detailDobLabel != null) detailDobLabel.setText((isBus ? "Incorporation Date: " : "Date of Birth: ") + user.dob);
+
                 if (detailAddressLabel != null) detailAddressLabel.setText("Physical Address: " + user.address);
-               
                 if (detailEmailLabel != null) detailEmailLabel.setText("Email Address: " + user.email);
                 if (detailPostalLabel != null) detailPostalLabel.setText("Postal Address: " + user.postal);
                 if (detailIncomeLabel != null) detailIncomeLabel.setText((isBus ? "Annual Turnover: " : "Source of Income: ") + user.income);
@@ -337,7 +334,7 @@ public class Main extends Application {
         dialog.setTitle("Choose Registration Type");
         dialog.setHeaderText("Choose Registration Type");
         dialog.setContentText("Select whether you are registering a Personal or Business account:");
-        
+
         dialog.getDialogPane().setGraphic(null);
 
         Optional<String> result = dialog.showAndWait();
@@ -385,8 +382,8 @@ public class Main extends Application {
         String dob = regDobField != null ? regDobField.getText().trim() : "";
         String address = regAddressField != null ? regAddressField.getText().trim() : "";
         String email = regEmailField != null ? regEmailField.getText().trim() : "";
+
         String postal = regPostalField != null ? regPostalField.getText().trim() : "";
-        
         String income = regIncomeField != null ? regIncomeField.getText().trim() : "";
         String employment = regEmploymentField != null ? regEmploymentField.getText().trim() : "";
         String accountType = (regAccountTypeCombo != null && regAccountTypeCombo.getValue() != null) ? regAccountTypeCombo.getValue() : "Savings Account";
@@ -402,19 +399,19 @@ public class Main extends Application {
         initialHistory.add(String.format("[%s] %s Account Opened (%s) | Initial Balance: P 0.00", timestamp, selectedProfileType, accountType));
 
         UserAccount newUser = new UserAccount(
-            generatedAccNum, generatedPassword, selectedProfileType, id, name, dob, address, email, 
-            postal, income, employment, accountType, phone, companyProfile, creationDate, 0.00, initialHistory
+                generatedAccNum, generatedPassword, selectedProfileType, id, name, dob, address, email,
+                postal, income, employment, accountType, phone, companyProfile, creationDate, 0.00, initialHistory
         );
 
         registeredUsers.put(generatedAccNum, newUser);
         saveUsersToFile();
 
         showPopup(
-            "Registration Successful", 
-            "Save Your Login Credentials", 
-            selectedProfileType + " Account created and saved to applebank.txt!\n\n" +
-            "Account Number: " + generatedAccNum + "\n" +
-            "Password: " + generatedPassword
+                "Registration Successful",
+                "Save Your Login Credentials",
+                selectedProfileType + " Account created and saved to applebank.txt!\n\n" +
+                        "Account Number: " + generatedAccNum + "\n" +
+                        "Password: " + generatedPassword
         );
 
         closeCurrentStage(event);
