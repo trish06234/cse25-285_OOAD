@@ -45,4 +45,4 @@
         <Button layoutX="200.0" layoutY="350.0" mnemonicParsing="false" onAction="#continueAction" text="CONTINUE" />
         <Button layoutX="320.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelAction" text="CANCEL" />
     </children>
-</AnchorPane>
+</AnchorPane> 
