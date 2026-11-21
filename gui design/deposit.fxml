@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <children>
+
+        <Label layoutX="145.0" layoutY="40.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Deposit Funds"/>
+
+        <Label layoutX="70.0" layoutY="120.0" text="Amount (P):"/>
+
+        <TextField fx:id="depositAmountField"layoutX="180.0" layoutY="116.0" prefWidth="180.0" promptText="Enter deposit amount"/>
+
+        <Button layoutX="130.0" layoutY="200.0"  mnemonicParsing="false" onAction="#processDeposit" prefWidth="100.0" text="Deposit"/>
+
+        <Button layoutX="260.0" layoutY="200.0" mnemonicParsing="false" onAction="#cancelTransaction" prefWidth="100.0" text="Cancel"/>
+
+    </children>
+
+</AnchorPane>
+
