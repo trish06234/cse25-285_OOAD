@@ -70,7 +70,7 @@ public class BankController {
                     String pass = parts[1];
                     String id = parts[2];
                     String name = parts[3];
-                    String Date Of Birth = parts[4];
+                    String dateOfBirth = parts[4];
                     String address = parts[5];
                     String email = parts[6];
                     String postal = parts[7];
@@ -87,8 +87,7 @@ public class BankController {
                     }
 
                     UserAccount user = new UserAccount(
-                        accNum, pass, id, name, Date Of Birth, address, email, postal, 
-                        income, employment, accType, phone, creationDate, balance, history
+                        accNum, pass, id, name, dateOfBirth, address, email, postal, income, employment, accType, phone, creationDate, balance, history
                     );
                     registeredUsers.put(accNum, user);
                 }
@@ -98,24 +97,26 @@ public class BankController {
         }
     }
 
-    public static void saveUsersToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE))) {
-            for (UserAccount user : registeredUsers.values()) {
-                String joinedHistory = String.join(";;", user.getTransactionHistory());
-                String line = String.join("|",
-                    user.getAccountNumber(), user.getPassword(),
-                    user.getIdNumber(), user.getFullName(), user.getDob(), user.getAddress(),
-                    user.getEmail(), user.getPostal(), user.getIncome(), user.getEmployment(),
-                    user.getAccountType(), user.getPhone(),
-                    user.getCreationDate(), String.valueOf(user.getBalance()), joinedHistory
-                );
-                writer.write(line);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+  public static void saveUsersToFile() {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE))) {
+
+        for (UserAccount user : registeredUsers.values()) {
+
+            String joinedHistory =
+                    String.join(";;", user.getTransactionHistory());
+
+            String line = String.join("|",user.getAccountNumber(),user.getPassword(),user.getIdNumber(),user.getFullName(),user.getDateOfBirth(),user.getAddress(),
+                                      user.getEmail(),user.getPostal(),user.getIncome(),user.getEmployment(),user.getAccountType(),user.getPhone(),user.getCreationDate(),String.valueOf(user.getBalance()),joinedHistory
+            );
+
+            writer.write(line);
+            writer.newLine();
         }
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     @FXML
     public void loginAction(ActionEvent event) {
@@ -148,7 +149,7 @@ public class BankController {
     public void continueAction(ActionEvent event) {
         String id = regIdField != null ? regIdField.getText().trim() : "";
         String name = regNameField != null ? regNameField.getText().trim() : "";
-        String Date Of Birth = regDobField != null ? regDobField.getText().trim() : "";
+        String  dateOfBirth = regDobField != null ? regDobField.getText().trim() : "";
         String address = regAddressField != null ? regAddressField.getText().trim() : "";
         String email = regEmailField != null ? regEmailField.getText().trim() : "";
         String postal = regPostalField != null ? regPostalField.getText().trim() : "";
@@ -165,7 +166,7 @@ public class BankController {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         history.add(String.format("[%s] Account Opened (%s) | Initial Balance: P 0.00", timestamp, accountType));
 
-        UserAccount newUser = new UserAccount(accNum, password, id, name, Date Of Birth, address, email, postal, income, employment, accountType, phone, creationDate, 0.00, history);
+        UserAccount newUser = new UserAccount(accNum, password, id, name,  dateOfBirth, address, email, postal, income, employment, accountType, phone, creationDate, 0.00, history);
         
         registeredUsers.put(accNum, newUser);
         saveUsersToFile();
@@ -228,58 +229,109 @@ public class BankController {
         }
     }
 
-    @FXML public void openDeposit(ActionEvent e) { openStage("deposit.fxml", "Deposit Funds"); }
-    @FXML public void openWithdraw(ActionEvent e) { openStage("withdraw.fxml", "Withdraw Funds"); }
-    @FXML public void openViewBalance(ActionEvent e) { openStage("view_balance.fxml", "Balance Inquiry"); }
-    @FXML public void openViewAccountDetails(ActionEvent e) { openStage("view_account_details.fxml", "Account Details"); }
-    @FXML public void openViewHistory(ActionEvent e) { openStage("view_history.fxml", "Transaction History"); }
-   
-    @FXML public void logoutAction(ActionEvent e) { currentLoggedInUser = ""; closeStage(e); openStage("login_view.fxml", "Home"); }
-    @FXML public void cancelAction(ActionEvent e) { closeStage(e); openStage("login_view.fxml", "Home"); }
-    @FXML public void cancelTransaction(ActionEvent e) { closeStage(e); }
-    @FXML public void closeAction(ActionEvent e) { closeStage(e); }
-    @FXML public void resetAction(ActionEvent e) { if (accountNumberField != null) accountNumberField.clear(); if (passwordField != null) passwordField.clear(); }
-
-    private void openStage(String fxmlFile, String title) {
-        try {
-            URL fileUrl = BankController.class.getResource(fxmlFile);
-            if (fileUrl == null) return;
-            
-            FXMLLoader loader = new FXMLLoader(fileUrl);
-            loader.setController(this);
-            Parent root = loader.load();
-
-            UserAccount user = registeredUsers.get(currentLoggedInUser);
-            if (fxmlFile.equals("view_account_details.fxml") && user != null) {
-                if (detailIdLabel != null) detailIdLabel.setText("ID Number: " + user.getIdNumber());
-                if (detailNameLabel != null) detailNameLabel.setText("Full Name: " + user.getFullName());
-                if (detailDobLabel != null) detailDobLabel.setText("Date of Birth: " + user.getDob());
-                if (detailAddressLabel != null) detailAddressLabel.setText("Physical Address: " + user.getAddress());
-                if (detailEmailLabel != null) detailEmailLabel.setText("Email Address: " + user.getEmail());
-               
-                if (detailPostalLabel != null) detailPostalLabel.setText("Postal Address: " + user.getPostal());
-                if (detailIncomeLabel != null) detailIncomeLabel.setText("Source of Income: " + user.getIncome());
-                if (detailEmploymentLabel != null) detailEmploymentLabel.setText("Employment Details: " + user.getEmployment());
-                if (detailAccountTypeLabel != null) detailAccountTypeLabel.setText("Account Type: " + user.getAccountType());
-                if (detailPhoneLabel != null) detailPhoneLabel.setText("Cellphone Number: " + user.getPhone());
-            }
-            if (fxmlFile.equals("view_balance.fxml") && user != null && balanceDisplayLabel != null) {
-                balanceDisplayLabel.setText(String.format("Current Balance: P %,.2f", user.getBalance()));
-            }
-            if (fxmlFile.equals("view_history.fxml") && user != null && historyTextArea != null) {
-                StringBuilder sb = new StringBuilder();
-                for (String record : user.getTransactionHistory()) sb.append(record).append("\n\n");
-                historyTextArea.setText(sb.toString());
-            }
-
-            Stage stage = new Stage();
-            stage.setTitle(title);
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @FXML public void openDeposit(ActionEvent e) { 
+        openStage("deposit.fxml", "Deposit Funds"); 
     }
+    @FXML public void openWithdraw(ActionEvent e) { 
+        openStage("withdraw.fxml", "Withdraw Funds");
+    }
+    @FXML public void openViewBalance(ActionEvent e) { 
+        openStage("view_balance.fxml", "Balance Inquiry"); 
+    }
+    @FXML public void openViewAccountDetails(ActionEvent e) { 
+        openStage("view_account_details.fxml", "Account Details"); 
+    }
+    @FXML public void openViewHistory(ActionEvent e) {
+        openStage("view_history.fxml", "Transaction History");
+    }
+   
+    @FXML public void logoutAction(ActionEvent e) { 
+        currentLoggedInUser = ""; closeStage(e); 
+        openStage("login_view.fxml", "Home"); 
+    }
+    @FXML public void cancelAction(ActionEvent e) { 
+        closeStage(e); openStage("login_view.fxml", "Home");
+    }
+    @FXML public void cancelTransaction(ActionEvent e) { 
+        closeStage(e); 
+}
+    @FXML public void closeAction(ActionEvent e) { 
+        closeStage(e); 
+    }
+    @FXML public void resetAction(ActionEvent e) {
+        if (accountNumberField != null) accountNumberField.clear(); 
+        if (passwordField != null) passwordField.clear(); 
+    }
+
+   private void openStage(String fxmlFile, String title) {
+    try {
+        URL fileUrl = BankController.class.getResource(fxmlFile);
+        if (fileUrl == null) return;
+
+        FXMLLoader loader = new FXMLLoader(fileUrl);
+        loader.setController(this);
+        Parent root = loader.load();
+
+        UserAccount user = registeredUsers.get(currentLoggedInUser);
+
+        if (fxmlFile.equals("view_account_details.fxml") && user != null) {
+
+            if (detailIdLabel != null)
+                detailIdLabel.setText("ID Number: " + user.getIdNumber());
+
+            if (detailNameLabel != null)
+                detailNameLabel.setText("Full Name: " + user.getFullName());
+
+            if (detailDobLabel != null)
+                detailDobLabel.setText("Date of Birth: " + user.getDateOfBirth());
+
+            if (detailAddressLabel != null)
+                detailAddressLabel.setText("Physical Address: " + user.getAddress());
+
+            if (detailEmailLabel != null)
+                detailEmailLabel.setText("Email Address: " + user.getEmail());
+
+            if (detailPostalLabel != null)
+                detailPostalLabel.setText("Postal Address: " + user.getPostal());
+
+            if (detailIncomeLabel != null)
+                detailIncomeLabel.setText("Source of Income: " + user.getIncome());
+
+            if (detailEmploymentLabel != null)
+                detailEmploymentLabel.setText("Employment Details: " + user.getEmployment());
+
+            if (detailAccountTypeLabel != null)
+                detailAccountTypeLabel.setText("Account Type: " + user.getAccountType());
+
+            if (detailPhoneLabel != null)
+                detailPhoneLabel.setText("Cellphone Number: " + user.getPhone());
+        }
+
+        if (fxmlFile.equals("view_balance.fxml") && user != null && balanceDisplayLabel != null) {
+
+            balanceDisplayLabel.setText( String.format("Current Balance: P %,.2f", user.getBalance()));
+        }
+
+        if (fxmlFile.equals("view_history.fxml") && user != null && historyTextArea != null) {
+
+            StringBuilder sb = new StringBuilder();
+
+            for (String record : user.getTransactionHistory()) {
+                sb.append(record).append("\n\n");
+            }
+
+            historyTextArea.setText(sb.toString());
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
     private void closeStage(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
