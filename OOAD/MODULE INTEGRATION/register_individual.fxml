@@ -29,7 +29,6 @@
       <TextField fx:id="regIncomeField" layoutX="300.0" layoutY="196.0" promptText="SOURCE OF INCOME" />
       <TextField fx:id="regEmploymentField" layoutX="300.0" layoutY="226.0" promptText="EMPLOYMENT DETAILS" />
       
-      <!-- Exactly 3 Account Type Options -->
       <ComboBox fx:id="regAccountTypeCombo" layoutX="300.0" layoutY="256.0" prefWidth="149.0" promptText="Select Account Type">
           <items>
               <FXCollections fx:factory="observableArrayList">
