@@ -1,21 +1,23 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
         BankController.loadUsersFromFile();
-        
-        BankController controller = new BankController();
 
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(Main.class.getResource("login_view.fxml"));
-            loader.setController(controller);
-            javafx.scene.Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("login_view.fxml"));
+
             primaryStage.setTitle("Apple Banking System - Home");
-            primaryStage.setScene(new javafx.scene.Scene(root));
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
