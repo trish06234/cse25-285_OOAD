@@ -39,9 +39,7 @@ public abstract class Account {
         return false;
     }
 
-    public Transaction createTransaction(int id,
-                                         double amount,
-                                         String type) {
+    public Transaction createTransaction(int id, double amount, String type) {
 
         return new Transaction(id, amount, type);
     }
